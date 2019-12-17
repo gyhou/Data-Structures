@@ -15,16 +15,14 @@ class Queue:
 
     def enqueue(self, value):
         # Add an item to the back of the queue
-        self.value = value
         self.size += 1
-        self.storage.add_to_tail(self.value)
+        self.storage.add_to_tail(value)
 
     def dequeue(self):
         # Remove and return an item from the front of the queue
         if self.size > 0:
-            item = self.storage.remove_from_head()
             self.size -= 1
-            return item
+            return self.storage.remove_from_head()
         else:
             return
 
