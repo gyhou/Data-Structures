@@ -5,7 +5,7 @@ from dll_stack import Stack
 
 
 class BinarySearchTree:
-    def __init__(self, value):
+    def __init__(self, value: int):
         self.value = value
         self.left = None
         self.right = None
@@ -29,44 +29,37 @@ class BinarySearchTree:
     # Return True if the tree contains the value
     # False if it does not
     def contains(self, target):
-        if target == self.value:
+        if self.value == target:
             return True
+        elif self.value > target and self.left:
+            return self.left.contains(target)
+        elif self.value < target and self.right:
+            return self.right.contains(target)
         else:
-            if self.value > target:
-                if self.left:
-                    return self.left.contains(target)
-                else:
-                    return False
-            else:
-                if self.right:
-                    return self.right.contains(target)
-                else:
-                    return False
+            return False
 
     # Return the maximum value found in the tree
     def get_max(self):
+        # if self.right:
+        #     while self.right.right:
+        #         self.right = self.right.right
+        #     return self.right.value
+        # else:
+        #     return self.value
         if self.right:
-            while self.right.right:
-                self.right = self.right.right
-            return self.right.value
+            return self.right.get_max()
         else:
             return self.value
 
     # Call the function `cb` on the value of each node
     # You may use a recursive or iterative approach
     def for_each(self, cb):
-        """
-        Performs a traversal of every node in the tree, 
-        executing the passed-in callback function on each 
-        tree node value. There is a myriad of ways to perform 
-        tree traversal; in this case any of them should work.
-        """
         cb(self.value)
 
-        if self.right:
-            self.right.for_each(cb)
         if self.left:
             self.left.for_each(cb)
+        if self.right:
+            self.right.for_each(cb)
 
     # DAY 2 Project -----------------------
 
